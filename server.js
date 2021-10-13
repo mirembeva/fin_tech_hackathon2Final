@@ -9,21 +9,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// app.use((req, res, next)=>{
-//     if(req.headers && req.headers.authorization){
-//         jwt.verify(req.headers.authorization, process.env.TOKEN_SECRET, (err, decode) => {
-//             if(err) req.user = undefined;
-
-//             req.user = decode;
-//             next();
-//         });
-//     } else {
-//         req.user = undefined;
-//         next();
-//     }
-// })
-
-
 (async()=>{
     await mongoose.connect(process.env.DB_CONNECTION, {
     useNewUrlParser: true,
@@ -36,6 +21,22 @@ app.use(cors());
     })
 })
 })()
+app.use((req, res, next)=>{
+    if(req.headers && req.headers.authorization){
+        jwt.verify(req.headers.authorization, process.env.TOKEN_SECRET, (err, decode) => {
+            if(err) req.user = undefined;
+
+            req.user = decode;
+            next();
+        });
+    } else {
+        req.user = undefined;
+        next();
+    }
+})
+
+
+
 
 
 
