@@ -66,11 +66,11 @@ exports.UserController = {
             //valid email
             const user= await UserModel.findOne({email: req.body.email});
             if(!user)
-            return  res.status(200).json({status: 0, message: err.message });
+            return  res.status(200).json({status: 0, message: "email does not exist" });
             //valid password
             const validpass = await bcrypt.compare(req.body.password,user.password);
             if(!validpass)
-            return  res.status(200).json({status: 0, message: err.message });
+            return  res.status(200).json({status: 0, message: "wrong password" });
             
             //create and assign jwt
             const token = jwt.sign({_id:user._id}, process.env.TOKEN_SECRET)

@@ -1,6 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
-// const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 require('dotenv/config')
 const cors = require('cors');
 
