@@ -23,6 +23,7 @@ exports.PaymentController = {
             const newPayment = await PaymentModel.create({
                 
                 amount: req.body.amount,
+                phone: req.body.phone,
                 userId: req.body.userId,
                 createdAt: Date.now()
             })
@@ -39,6 +40,7 @@ exports.PaymentController = {
     async updatePayment(req, res) {
     const payment = new Payment();
     payment.amount = req.body.amount;
+    payment.phone = req.body.phone;
     payment.reference = req.user.id;
     payment.createdAt = Date.now(); 
         

@@ -2,6 +2,7 @@ const { Schema, model } = require('mongoose');
 
 const PaymentSchema = new Schema({
     amount: {type: Number, required: true },
+    phone: {type: Number, required: true },
     userId: {
         type: Schema.Types.ObjectId,        
         ref: 'User'
