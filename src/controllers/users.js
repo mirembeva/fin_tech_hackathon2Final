@@ -8,9 +8,14 @@ exports.UserController = {
     async getusers(req, res) {
         try {
             const response = await UserModel.find();
-            return res.json(response);
+            //return res.json(response);
+            return res.status(201).json({
+                status: 1,
+                response: response
+            });
         } catch(err){
-            throw new Error("Failed to get users");
+            // throw new Error("Failed to get users");
+            res.status(200).json({status: 0, message: err.message });
         }
     },
     async createNewUser(req, res) {
@@ -24,11 +29,15 @@ exports.UserController = {
                 mobile: req.body.mobile
                
             });
-            return res.json({response:response._id});
-            console.log(response)
+            //return res.json({response:response._id});
+            return res.status(201).json({
+                status: 1,
+                response:response._id
+            });
         } catch(err){
-            console.log(err)
-            throw new Error("Failed to post users");
+            // console.log(err)
+            // throw new Error("Failed to post users");
+            res.status(200).json({status: 0, message: err.message });
         }
     },
     // async updateUser(req, res) {
@@ -57,11 +66,11 @@ exports.UserController = {
             //valid email
             const user= await UserModel.findOne({email: req.body.email});
             if(!user)
-            return res.json({message: 'Invalid Email'});
+            return  res.status(200).json({status: 0, message: err.message });
             //valid password
             const validpass = await bcrypt.compare(req.body.password,user.password);
             if(!validpass)
-            return res.json({message: 'Invalid password'});
+            return  res.status(200).json({status: 0, message: err.message });
             
             //create and assign jwt
             const token = jwt.sign({_id:user._id}, process.env.TOKEN_SECRET)
@@ -69,8 +78,9 @@ exports.UserController = {
             res.send(token);
     
         } catch(err){
-            console.log(err)
+            //console.log(err)
             // throw new Error("Failed to login user");
+            res.status(200).json({status: 0, message: err.message });
         }
     }
 }

@@ -5,13 +5,18 @@ exports.PaymentController = {
     async getpayments(req, res) {
         try {
             const payment = await PaymentModel.find({userId:req.params.userId}).populate("userId",["fullname", "mobile" ]);
-            return res.json(payment);
+            //return res.json(payment);
+            return res.status(201).json({
+                status: 1,
+                payment: Payment
+            });
         } catch(err){
-            throw new Error("Failed to get products");
+            // throw new Error("Failed to get products");
+            res.status(200).json({status: 0, message: err.message });
         }
     },
     async createNewPayment(req, res) {
-        console.log(req.body)
+      
         try {
             // await emailSending(req.user.email, req.user.accNo, `You have deposited ${req.body.amount} EUR to your account : ${req.user.accNo}`)
         
