@@ -76,7 +76,7 @@ exports.UserController = {
             const token = jwt.sign({_id:user._id}, process.env.TOKEN_SECRET)
             res.header('authentication_token', token);
             //res.json(token);
-            res.status(200).json({status: 1, token: token, userId:user._id})
+            res.status(200).json({status: 1, token: token, userId:user._id, name:user.fullname})
     
         } catch(err){
             //console.log(err)
