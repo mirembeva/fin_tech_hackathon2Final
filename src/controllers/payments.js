@@ -8,7 +8,7 @@ exports.PaymentController = {
             //return res.json(payment);
             return res.status(201).json({
                 status: 1,
-                payment: Payment
+                payment: payment
             });
         } catch(err){
             // throw new Error("Failed to get products");
